@@ -1,3 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品登録フォーム - 衣服販売用</title>
+  <style>
+    /* --- Base Variables (Light Theme) --- */
+    :root {
+      --bg-color: #f8f9fa;
+      --form-bg-color: #ffffff;
+      --text-color: #212529;
+      --muted-text-color: #6c757d;
+      --placeholder-color: #adb5bd;
+      --border-color: #dee2e6;
+      --input-border-color: #ced4da;
+      --input-bg-color: #ffffff;
+      --input-focus-border-color: #80bdff;
+      --input-focus-shadow-color: rgba(0, 123, 255, 0.25);
+      --primary-color: #007bff;
+      --primary-hover-color: #0056b3;
+      --primary-gradient-start: #007bff;
+      --primary-gradient-end: #0056b3;
+      --primary-gradient-hover-start: #0069d9;
+      --primary-gradient-hover-end: #004085;
+      --primary-shadow-color: rgba(0, 123, 255, 0.3);
+      --secondary-bg-color: #e9ecef;
+      --secondary-border-color: #ced4da;
+      --secondary-hover-bg-color: #dee2e6;
+      --secondary-hover-border-color: #adb5bd;
+      --sample-button-text: #007bff;
+      --sample-button-bg: #e7f3ff;
+      --sample-button-border: #b8daff;
+      --sample-button-hover-bg: #d0e7ff;
+      --sample-button-hover-border: #a2cffe;
+      --checkmark-bg: #eee;
+      --checkmark-border: #ccc;
+      --checkmark-hover-bg: #ddd;
+      --checkmark-checked-bg: var(--primary-color);
+      --checkmark-checked-border: var(--primary-color);
+      --checkmark-checked-hover-bg: var(--primary-hover-color);
+      --checkmark-checked-hover-border: var(--primary-hover-color);
+      --success-color: #28a745;
+      --error-color: #dc3545;
+      --toast-text-color: #ffffff;
+      --toast-progress-bg: rgba(255, 255, 255, 0.4);
+      --form-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      --button-shadow: 0 4px 15px var(--primary-shadow-color);
+      --toast-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      --theme-toggle-button-color: #6c757d;
+      --theme-toggle-button-hover-bg: rgba(0, 0, 0, 0.05);
+      --table-header-bg: #f8f9fa;
+      --table-border-color: var(--border-color);
+      --table-stripe-bg: #f8f9fa;
+      --table-hover-bg: #f1f3f5;
+      --reset-list-button-text: var(--error-color);
+      --reset-list-button-bg: transparent;
+      --reset-list-button-border: var(--error-color);
+      --reset-list-button-hover-bg: rgba(220, 53, 69, 0.1);
+    }
+
+    /* --- Dark Theme Variables --- */
+    body.dark-theme {
+      --bg-color: #1a1a1a;
+      --form-bg-color: #2c2c2c;
+      --text-color: #e9ecef;
+      --muted-text-color: #adb5bd;
+      --placeholder-color: #6c757d;
+      --border-color: #495057;
+      --input-border-color: #495057;
+      --input-bg-color: #343a40;
+      --input-focus-border-color: #5a9dff;
+      --input-focus-shadow-color: rgba(0, 100, 255, 0.35);
+      --primary-color: #0d6efd;
+      --primary-hover-color: #0b5ed7;
+      --primary-gradient-start: #0d6efd;
+      --primary-gradient-end: #0b5ed7;
+      --primary-gradient-hover-start: #3b82f6;
+      --primary-gradient-hover-end: #0d6efd;
+      --primary-shadow-color: rgba(13, 110, 253, 0.3);
+      --secondary-bg-color: #343a40;
+      --secondary-border-color: #495057;
+      --secondary-hover-bg-color: #495057;
+      --secondary-hover-border-color: #6c757d;
+      --sample-button-text: #5a9dff;
+      --sample-button-bg: #1c3a5e;
+      --sample-button-border: #2a588a;
+      --sample-button-hover-bg: #2a588a;
+      --sample-button-hover-border: #3b82f6;
+      --checkmark-bg: #495057;
+      --checkmark-border: #6c757d;
+      --checkmark-hover-bg: #5a6268;
+      --checkmark-checked-bg: var(--primary-color);
+      --checkmark-checked-border: var(--primary-color);
+      --checkmark-checked-hover-bg: var(--primary-hover-color);
+      --checkmark-checked-hover-border: var(--primary-hover-color);
+      --success-color: #198754;
+      --error-color: #dc3545;
+      --toast-text-color: #ffffff;
+      --toast-progress-bg: rgba(255, 255, 255, 0.3);
+      --form-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      --button-shadow: 0 4px 15px var(--primary-shadow-color);
+      --toast-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --theme-toggle-button-color: #adb5bd;
+      --theme-toggle-button-hover-bg: rgba(255, 255, 255, 0.1);
+      --table-header-bg: #343a40;
+      --table-border-color: var(--border-color);
+      --table-stripe-bg: #343a40;
+      --table-hover-bg: #3e444a;
+      --reset-list-button-text: #ff7b89;
+      --reset-list-button-bg: transparent;
+      --reset-list-button-border: #ff7b89;
+      --reset-list-button-hover-bg: rgba(255, 123, 137, 0.15);
+    }
+
+    /* --- Base Styles --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Form Container */
+    .form-container {
+      position: relative;
+      background-color: var(--form-bg-color);
+      border-radius: 12px;
+      box-shadow: var(--form-shadow);
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 30px 40px 40px;
+      overflow: hidden;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+     /* Theme Toggle Button */
+    #theme-toggle-button {
+        position: absolute;
+        top: 20px;
+        left: 25px;
+        background: none;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--theme-toggle-button-color);
+        transition: background-color 0.2s ease, color 0.2s ease;
+        z-index: 11;
+    }
+    #theme-toggle-button:hover {
+        background-color: var(--theme-toggle-button-hover-bg);
+    }
+    #theme-toggle-button svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+    }
+    .icon-sun, .icon-moon { display: none; }
+    body:not(.dark-theme) .icon-moon { display: block; }
+    body.dark-theme .icon-sun { display: block; }
+
+    /* Top Right Buttons (Sample/Reset) */
+    .form-top-buttons {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        display: flex;
+        gap: 10px;
+        z-index: 10;
+    }
+    .form-top-buttons button {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+    }
+    #fill-sample-button {
+        color: var(--sample-button-text);
+        background-color: var(--sample-button-bg);
+        border-color: var(--sample-button-border);
+    }
+    #fill-sample-button:hover {
+        background-color: var(--sample-button-hover-bg);
+        border-color: var(--sample-button-hover-border);
+    }
+    #reset-form-button {
+        color: var(--muted-text-color);
+        background-color: var(--secondary-bg-color);
+        border-color: var(--secondary-border-color);
+    }
+    #reset-form-button:hover {
+        background-color: var(--secondary-hover-bg-color);
+        border-color: var(--secondary-hover-border-color);
+    }
+
+    /* Form Title */
+    .form-title {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-color);
+        margin-top: 30px; /* Space for buttons */
+    }
+    /* Sample Notice */
+    .sample-notice {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 10px;
+        background-color: var(--secondary-bg-color);
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: var(--muted-text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    /* Form Group */
+    .form-group { margin-bottom: 25px; }
+    /* Labels */
+    .form-group > label, .label-heading {
+        display: block;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 8px;
+        color: var(--text-color);
+        transition: color 0.3s ease;
+    }
+    /* Required Asterisk */
+    .required-asterisk {
+        color: var(--error-color);
+        font-weight: bold;
+        margin-left: 4px;
+    }
+    /* Form Controls */
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--input-border-color);
+        border-radius: 6px;
+        font-size: 1rem;
+        background-color: var(--input-bg-color);
+        color: var(--text-color);
+        transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: var(--input-focus-border-color);
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem var(--input-focus-shadow-color);
+    }
+    .form-control::placeholder {
+        color: var(--placeholder-color);
+        opacity: 1;
+    }
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+    select.form-control {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 16px 12px;
+        padding-right: 2.5rem;
+    }
+    body.dark-theme select.form-control {
+       background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23adb5bd' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    }
+
+    /* Custom Radio & Checkbox */
+    .choice-group { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 8px; }
+    .choice-group label { display: flex; align-items: center; cursor: pointer; font-weight: 400; color: var(--text-color); position: relative; padding-left: 28px; user-select: none; transition: color 0.3s ease; }
+    .choice-group input[type="radio"], .choice-group input[type="checkbox"] { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+    .checkmark { position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 20px; width: 20px; background-color: var(--checkmark-bg); border: 1px solid var(--checkmark-border); transition: all 0.2s ease; }
+    .choice-group input[type="radio"] ~ .checkmark { border-radius: 50%; }
+    .choice-group input[type="checkbox"] ~ .checkmark { border-radius: 4px; }
+    .choice-group label:hover input:not(:checked) ~ .checkmark { background-color: var(--checkmark-hover-bg); }
+    .choice-group input:checked ~ .checkmark { background-color: var(--checkmark-checked-bg); border-color: var(--checkmark-checked-border); }
+    .choice-group label:hover input:checked ~ .checkmark { background-color: var(--checkmark-checked-hover-bg); border-color: var(--checkmark-checked-hover-border); }
+    .checkmark:after { content: ""; position: absolute; display: none; }
+    .choice-group input:checked ~ .checkmark:after { display: block; }
+    .choice-group input[type="radio"]:checked ~ .checkmark:after { top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; background: var(--input-bg-color); transform: translate(-50%, -50%); transition: background-color 0.3s ease; }
+    .choice-group input[type="checkbox"]:checked ~ .checkmark:after { left: 6px; top: 2px; width: 5px; height: 10px; border: solid var(--input-bg-color); border-width: 0 3px 3px 0; transform: rotate(45deg); transition: border-color 0.3s ease; }
+
+    /* Submit Button */
+    .submit-button {
+        display: block; width: 100%; padding: 12px 20px;
+        background: linear-gradient(45deg, var(--primary-gradient-start), var(--primary-gradient-end));
+        color: var(--toast-text-color); border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 600;
+        cursor: pointer; transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+        margin-top: 10px; box-shadow: var(--button-shadow);
+    }
+    .submit-button:hover {
+        background: linear-gradient(45deg, var(--primary-gradient-hover-start), var(--primary-gradient-hover-end));
+        box-shadow: 0 6px 20px var(--primary-shadow-color);
+    }
+    .submit-button:active { transform: translateY(1px); box-shadow: 0 2px 10px var(--primary-shadow-color); }
+
+    /* Toast Message */
+    #toast {
+        display: none; flex-direction: column; align-items: flex-start;
+        background-color: var(--success-color); color: var(--toast-text-color);
+        border-radius: 8px; padding: 12px 20px 8px; margin-top: 20px; opacity: 0;
+        transition: opacity 0.5s ease, transform 0.3s ease, background-color 0.3s ease;
+        transform: translateY(-10px); width: 100%; font-size: 1rem;
+        box-shadow: var(--toast-shadow); position: relative; overflow: hidden;
+    }
+    .toast-main { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 5px; }
+    .toast-sub-message { font-size: 0.8em; color: rgba(255, 255, 255, 0.8); margin-left: 36px; }
+    #countdown-timer { font-weight: bold; }
+    #toast.show { display: flex; opacity: 1; transform: translateY(0); }
+    #toast.error { background-color: var(--error-color); }
+    #toast.error .toast-icon svg, #toast.error .toast-sub-message, #toast.error .toast-progress-bar { display: none; }
+    .toast-progress-bar {
+        position: absolute; bottom: 0; left: 0; height: 4px;
+        background-color: var(--toast-progress-bg); width: 100%;
+        transform: scaleX(1); transform-origin: left; transition: none;
+    }
+    #toast.shrinking .toast-progress-bar { transform: scaleX(0); transition: transform 5s linear; }
+    .toast-icon { width: 24px; height: 24px; flex-shrink: 0; }
+    .toast-icon svg { width: 100%; height: 100%; display: block; }
+    .toast-icon .check-circle { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 6; stroke-linecap: round; stroke: var(--toast-text-color); fill: none; animation: draw-circle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards; }
+    .toast-icon .check-mark { stroke-dasharray: 48; stroke-dashoffset: 48; stroke-width: 6; stroke-linecap: round; stroke: var(--toast-text-color); fill: none; animation: draw-check 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards; }
+    @keyframes draw-circle { to { stroke-dashoffset: 0; } }
+    @keyframes draw-check { to { stroke-dashoffset: 0; } }
+    #toast:not(.show) .check-circle, #toast:not(.show) .check-mark { stroke-dashoffset: 166; animation: none; }
+    #toast:not(.show) .check-mark { stroke-dashoffset: 48; }
+
+    /* --- Product List Styles --- */
+    .product-list-container {
+      max-width: 700px; margin: 2rem auto; background-color: var(--form-bg-color);
+      border-radius: 12px; box-shadow: var(--form-shadow); padding: 20px 30px 30px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .list-header {
+        display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+    }
+    .list-header h3 {
+        font-size: 1.4rem; font-weight: 600; color: var(--text-color);
+        text-align: left; margin-bottom: 0; transition: color 0.3s ease;
+    }
+    #reset-product-list-button {
+        padding: 5px 10px; font-size: 0.8rem; border-radius: 4px; cursor: pointer;
+        color: var(--reset-list-button-text); background-color: var(--reset-list-button-bg);
+        border: 1px solid var(--reset-list-button-border); transition: all 0.2s ease;
+    }
+     #reset-product-list-button:hover { background-color: var(--reset-list-button-hover-bg); }
+    .product-table {
+        width: 100%; border-collapse: collapse; margin-top: 0; font-size: 0.9rem;
+        border: 1px solid var(--table-border-color); transition: border-color 0.3s ease;
+    }
+    .product-table thead th {
+        background-color: var(--table-header-bg); color: var(--text-color);
+        padding: 10px 12px; text-align: left; font-weight: 600;
+        border-bottom: 2px solid var(--table-border-color);
+         transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+    /* Style for the first header cell (empty for row number) */
+     .product-table thead th:first-child {
+         width: 40px; padding: 0; border-bottom: 2px solid var(--table-border-color);
+     }
+     /* Row number cell styles */
+     .product-table td:first-child {
+         width: 40px; text-align: center; color: var(--muted-text-color); font-size: 0.8em;
+         padding-right: 5px;
+     }
+     /* Alignment for other columns */
+     .product-table th:nth-child(3), .product-table td:nth-child(3) { text-align: right; width: 100px; } /* 金額 */
+     .product-table th:nth-child(4), .product-table td:nth-child(4) { width: 100px; } /* カテゴリ */
+
+    .product-table tbody td {
+        padding: 10px 12px; border-bottom: 1px solid var(--table-border-color);
+        color: var(--text-color); transition: border-color 0.3s ease, color 0.3s ease, background-color 0.1s ease;
+    }
+    .product-table tbody tr:nth-child(even) { background-color: var(--table-stripe-bg); transition: background-color 0.3s ease; }
+    .product-table tbody tr:hover { background-color: var(--table-hover-bg); }
+    .empty-message-row td {
+        text-align: center; padding: 30px 12px; color: var(--muted-text-color);
+        font-style: italic; background-color: transparent !important; transition: color 0.3s ease;
+    }
+    .empty-message-row:hover td { background-color: transparent !important; }
+
+    /* Responsive Design Adjustments */
+    @media (max-width: 768px) {
+      .form-container { padding: 30px 25px 30px; margin: 1rem auto; }
+      #theme-toggle-button { top: 15px; left: 15px; }
+      .form-top-buttons { top: 15px; right: 15px; gap: 8px; }
+      .form-top-buttons button, #reset-product-list-button { padding: 5px 10px; font-size: 0.8rem; }
+      .form-title { font-size: 1.6rem; margin-top: 45px; }
+      .sample-notice { margin-bottom: 20px; font-size: 0.85rem; }
+      .choice-group { gap: 15px 15px; }
+      .choice-group label { flex-basis: calc(50% - 10px); }
+      .product-list-container { padding: 15px 20px 20px; }
+      .list-header h3 { font-size: 1.2rem; }
+      .product-table { font-size: 0.85rem; }
+      .product-table thead th, .product-table tbody td { padding: 8px 10px; }
+    }
+     @media (max-width: 480px) {
+         #theme-toggle-button { top: 10px; left: 10px; }
+         .form-top-buttons { top: 10px; right: 10px; }
+         .form-title { margin-top: 50px; }
+         .choice-group label { flex-basis: 100%; }
+         #toast { padding: 10px 15px 6px; }
+         .toast-main { gap: 10px; }
+         .toast-icon { width: 20px; height: 20px; }
+         .toast-sub-message { margin-left: 30px; font-size: 0.75em;}
+         .toast-progress-bar { height: 3px; }
+         .product-table { display: block; overflow-x: auto; white-space: nowrap; border: none; }
+         .product-table thead { display: none; }
+         .product-table tbody, .product-table tr, .product-table td { display: block; }
+         .product-table tr { border: 1px solid var(--table-border-color); margin-bottom: 10px; background-color: transparent !important; }
+         .product-table td { padding-left: 45%; position: relative; text-align: right !important; border-bottom: none; min-height: 38px; display: flex; align-items: center; justify-content: flex-end;}
+         .product-table td:before { content: attr(data-label); position: absolute; left: 10px; width: 40%; padding-right: 10px; white-space: nowrap; font-weight: 600; text-align: left !important; color: var(--text-color); transition: color 0.3s ease; display: flex; align-items: center; height: 100%;}
+         /* Style row number cell specifically on mobile */
+         .product-table td:first-child {
+             padding-left: 10px; text-align: left !important; width: auto; justify-content: flex-start;
+             color: var(--muted-text-color); font-size: 0.8em;
+         }
+         .product-table td:first-child:before { display: none; }
+         .empty-message-row td { display: block; text-align: center !important; padding: 20px; }
+         .empty-message-row td:before { content: ""; display: none; }
+         .list-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+     }
+  </style>
+</head>
+<body class="">
+  <div class="form-container">
+    <button id="theme-toggle-button" type="button" aria-label="テーマを切り替え">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM5.106 17.834a.75.75 0 001.06 1.06l1.591-1.59a.75.75 0 00-1.06-1.061l-1.591 1.59zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 5.106a.75.75 0 00-1.06 1.06l1.59 1.591a.75.75 0 101.061-1.06l-1.59-1.591z"></path></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.625 4.469-8.474a.75.75 0 01.818.162z" clip-rule="evenodd"></path></svg>
+    </button>
+    <div class="form-top-buttons">
+        <button id="fill-sample-button" type="button">サンプル値入力</button>
+        <button id="reset-form-button" type="button">リセット</button>
+    </div>
+    <h2 class="form-title">商品登録フォーム</h2>
+    <div class="sample-notice"><p>このフォームはサンプルです。入力された内容は実際には送信されません。</p></div>
+    <form id="product-form" novalidate>
+      <div class="form-group">
+        <label for="product-name">商品名<span class="required-asterisk">*</span></label>
+        <input type="text" id="product-name" name="product-name" placeholder="例: プレミアムコットンTシャツ" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="price">金額 (円)<span class="required-asterisk">*</span></label>
+        <input type="number" id="price" name="price" placeholder="例: 3980" class="form-control" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="category">カテゴリ<span class="required-asterisk">*</span></label>
+        <select id="category" name="category" class="form-control" required>
+          <option value="" disabled selected>カテゴリを選択してください</option>
+          <option value="tshirt">Tシャツ</option>
+          <option value="shirt">シャツ</option>
+          <option value="knit">ニット・セーター</option>
+          <option value="pants">パンツ</option>
+          <option value="skirt">スカート</option>
+          <option value="dress">ワンピース</option>
+          <option value="outerwear">アウター</option>
+          <option value="shoes">シューズ</option>
+          <option value="bag">バッグ</option>
+          <option value="accessory">アクセサリー</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description">商品説明</label>
+        <textarea id="description" name="description" rows="5" placeholder="商品の特徴、素材、サイズ感、お手入れ方法などを詳しく記載してください" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="stock">在庫数<span class="required-asterisk">*</span></label>
+        <input type="number" id="stock" name="stock" placeholder="例: 10" class="form-control" required min="0">
+      </div>
+      <div class="form-group">
+        <label for="release-date">発売日</label>
+        <input type="date" id="release-date" name="release-date" class="form-control">
+      </div>
+      <div class="form-group">
+        <span class="label-heading">商品状態</span>
+        <div class="choice-group radio-group">
+          <label><input type="radio" name="condition" value="new" checked><span class="checkmark"></span> 新品</label>
+          <label><input type="radio" name="condition" value="used_good"><span class="checkmark"></span> 中古（状態良好）</label>
+          <label><input type="radio" name="condition" value="used_fair"><span class="checkmark"></span> 中古（使用感あり）</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <span class="label-heading">カラーバリエーション</span>
+        <div class="choice-group checkbox-group">
+          <label><input type="checkbox" name="colors" value="white"><span class="checkmark"></span> ホワイト</label>
+          <label><input type="checkbox" name="colors" value="black"><span class="checkmark"></span> ブラック</label>
+          <label><input type="checkbox" name="colors" value="gray"><span class="checkmark"></span> グレー</label>
+          <label><input type="checkbox" name="colors" value="navy"><span class="checkmark"></span> ネイビー</label>
+          <label><input type="checkbox" name="colors" value="beige"><span class="checkmark"></span> ベージュ</label>
+          <label><input type="checkbox" name="colors" value="green"><span class="checkmark"></span> グリーン</label>
+          <label><input type="checkbox" name="colors" value="red"><span class="checkmark"></span> レッド</label>
+          <label><input type="checkbox" name="colors" value="blue"><span class="checkmark"></span> ブルー</label>
+          <label><input type="checkbox" name="colors" value="yellow"><span class="checkmark"></span> イエロー</label>
+          <label><input type="checkbox" name="colors" value="pink"><span class="checkmark"></span> ピンク</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="商品を登録する" class="submit-button">
+      </div>
+      <div id="toast">
+          <div class="toast-main">
+              <span class="toast-icon"><svg viewBox="0 0 52 52"><circle class="check-circle" cx="26" cy="26" r="25" fill="none"/><path class="check-mark" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg></span>
+              <span class="toast-message">商品情報を登録しました (サンプル)</span>
+          </div>
+          <span class="toast-sub-message"><span id="countdown-timer">5</span> 秒後にフォームがリセットされます。</span>
+          <div class="toast-progress-bar"></div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Product List Area -->
+  <div class="product-list-container">
+      <div class="list-header">
+          <h3>登録商品一覧</h3>
+          <button id="reset-product-list-button" type="button">登録商品をリセット</button>
+      </div>
+      <table class="product-table">
+          <thead>
+              <tr>
+                  <th></th> <!-- Empty header for row number -->
+                  <th>商品名</th>
+                  <th>金額</th>
+                  <th>カテゴリ</th>
+                  <th>商品詳細</th>
+              </tr>
+          </thead>
+          <tbody id="product-list-body"></tbody>
+      </table>
+  </div>
+
   <script>
     // --- DOM Elements ---
     const productForm = document.getElementById("product-form");
@@ -28,25 +568,62 @@
     ];
 
     // --- Theme Handling ---
-    function applyTheme(theme) { if (theme === 'dark') { bodyElement.classList.add('dark-theme'); } else { bodyElement.classList.remove('dark-theme'); } }
-    function toggleTheme() { const currentTheme = bodyElement.classList.contains('dark-theme') ? 'dark' : 'light'; const newTheme = currentTheme === 'dark' ? 'light' : 'dark'; applyTheme(newTheme); localStorage.setItem(localStorageThemeKey, newTheme); }
-    const savedTheme = localStorage.getItem(localStorageThemeKey); applyTheme(savedTheme || 'light');
+    function applyTheme(theme) {
+      if (theme === 'dark') { bodyElement.classList.add('dark-theme'); }
+      else { bodyElement.classList.remove('dark-theme'); }
+    }
+    function toggleTheme() {
+      const currentTheme = bodyElement.classList.contains('dark-theme') ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+      localStorage.setItem(localStorageThemeKey, newTheme);
+    }
+    const savedTheme = localStorage.getItem(localStorageThemeKey);
+    applyTheme(savedTheme || 'light'); // Default to light theme
 
     // --- Render Product Table Function ---
     function renderProductTable() {
         productListBody.innerHTML = '';
         if (registeredProducts.length === 0) {
-            const emptyRow = document.createElement('tr'); emptyRow.classList.add('empty-message-row');
-            const emptyCell = document.createElement('td'); emptyCell.setAttribute('colspan', 5);
-            emptyCell.textContent = '商品が未登録です'; emptyRow.appendChild(emptyCell); productListBody.appendChild(emptyRow);
+            const emptyRow = document.createElement('tr');
+            emptyRow.classList.add('empty-message-row');
+            const emptyCell = document.createElement('td');
+            emptyCell.setAttribute('colspan', 5); // Match total columns (1 empty + 4 data)
+            emptyCell.textContent = '商品が未登録です';
+            emptyRow.appendChild(emptyCell);
+            productListBody.appendChild(emptyRow);
         } else {
             registeredProducts.forEach((product) => {
                 const row = document.createElement('tr');
-                const cellIndex = document.createElement('td'); cellIndex.textContent = product.id; row.appendChild(cellIndex);
-                const cellName = document.createElement('td'); cellName.textContent = product.name; cellName.setAttribute('data-label', '商品名'); row.appendChild(cellName);
-                const cellPrice = document.createElement('td'); cellPrice.textContent = `¥${Number(product.price).toLocaleString()}`; cellPrice.setAttribute('data-label', '金額'); row.appendChild(cellPrice);
-                const cellCategory = document.createElement('td'); const categorySelect = document.getElementById('category'); const selectedOption = categorySelect.querySelector(`option[value="${product.category}"]`); cellCategory.textContent = selectedOption ? selectedOption.textContent : product.category; cellCategory.setAttribute('data-label', 'カテゴリ'); row.appendChild(cellCategory);
-                const cellDesc = document.createElement('td'); const shortDesc = product.description && product.description.length > 20 ? product.description.substring(0, 20) + "…" : (product.description || ''); cellDesc.textContent = shortDesc; cellDesc.setAttribute('data-label', '商品詳細'); row.appendChild(cellDesc);
+                // Row number cell (styled only)
+                const cellIndex = document.createElement('td');
+                cellIndex.textContent = product.id;
+                row.appendChild(cellIndex); // Append first cell (row number)
+
+                // Append other data cells
+                const cellName = document.createElement('td');
+                cellName.textContent = product.name;
+                cellName.setAttribute('data-label', '商品名');
+                row.appendChild(cellName);
+
+                const cellPrice = document.createElement('td');
+                cellPrice.textContent = `¥${Number(product.price).toLocaleString()}`;
+                cellPrice.setAttribute('data-label', '金額');
+                row.appendChild(cellPrice);
+
+                const cellCategory = document.createElement('td');
+                 const categorySelect = document.getElementById('category');
+                 const selectedOption = categorySelect ? categorySelect.querySelector(`option[value="${product.category}"]`) : null; // Check if select exists
+                 cellCategory.textContent = selectedOption ? selectedOption.textContent : product.category;
+                cellCategory.setAttribute('data-label', 'カテゴリ');
+                row.appendChild(cellCategory);
+
+                const cellDesc = document.createElement('td');
+                const shortDesc = product.description && product.description.length > 20 ? product.description.substring(0, 20) + "…" : (product.description || '');
+                cellDesc.textContent = shortDesc;
+                cellDesc.setAttribute('data-label', '商品詳細');
+                row.appendChild(cellDesc);
+
                 productListBody.appendChild(row);
             });
         }
@@ -54,8 +631,10 @@
 
     // --- Reset Product List Function ---
     function resetProductList() {
-        console.log("Resetting product list...");
-        registeredProducts = []; renderProductTable();
+        console.log("Resetting product list..."); // Log action instead of confirm
+        registeredProducts = []; // Clear the array
+        renderProductTable();    // Re-render the empty table
+        // Optionally show a confirmation toast
         showToast("登録商品リストをリセットしました。", "success");
     }
 
@@ -104,92 +683,58 @@
 
       clearTimeout(toastTimeout); clearInterval(countdownInterval);
       showToast("商品情報を登録しました (サンプル)", "success");
-      // Countdown is started within showToast now for success message
-      // toastTimeout = setTimeout(() => { resetForm(); }, 5000); // Reset timer is set within showToast
+      // Form reset timer is set within showToast for the main success message
     });
 
     // --- Countdown Function ---
     function startCountdown(seconds) {
-        // Clear any existing interval before starting a new one
-        clearInterval(countdownInterval);
-
+        clearInterval(countdownInterval); // Clear previous interval
         let remainingSeconds = seconds;
-        if(countdownTimerSpan) {
-             // Initial display, ensure integer
-             countdownTimerSpan.textContent = Math.floor(remainingSeconds);
-        }
-        if(progressBar) {
-             progressBar.style.transition = 'none';
-             progressBar.style.transform = 'scaleX(1)';
-             progressBar.offsetHeight; // Reflow
-        }
-        // Ensure shrinking class is added after display
-        setTimeout(() => {
-             if (toast.classList.contains('show')) {
-                 toast.classList.add('shrinking');
-             }
-        }, 0);
-
+        if(countdownTimerSpan) { countdownTimerSpan.textContent = Math.floor(remainingSeconds); }
+        if(progressBar) { progressBar.style.transition = 'none'; progressBar.style.transform = 'scaleX(1)'; progressBar.offsetHeight; }
+        setTimeout(() => { if (toast.classList.contains('show')) { toast.classList.add('shrinking'); } }, 0);
         countdownInterval = setInterval(() => {
-            remainingSeconds -= 1; // Decrement by 1
-            if(countdownTimerSpan) {
-                // Ensure integer and >= 0 for display
-                countdownTimerSpan.textContent = Math.max(0, Math.floor(remainingSeconds));
-            }
-            if (remainingSeconds <= 0) {
-                clearInterval(countdownInterval); // Stop the interval
-            }
-        }, 1000); // Run every 1000ms (1 second)
+            remainingSeconds -= 1;
+            if(countdownTimerSpan) { countdownTimerSpan.textContent = Math.max(0, Math.floor(remainingSeconds)); }
+            if (remainingSeconds <= 0) { clearInterval(countdownInterval); }
+        }, 1000);
     }
-
     // --- Toast Functions ---
     function showToast(message, type = "success") {
-        clearTimeout(toastTimeout); clearInterval(countdownInterval); // Clear previous timers
-
-        toastMessage.textContent = message;
-        toast.classList.remove('error', 'shrinking');
+        clearTimeout(toastTimeout); clearInterval(countdownInterval);
+        toastMessage.textContent = message; toast.classList.remove('error', 'shrinking');
         const subMessage = toast.querySelector('.toast-sub-message');
+        const progressBar = toast.querySelector('.toast-progress-bar'); // Ensure progress bar is referenced
         const mainSuccessMessage = "商品情報を登録しました (サンプル)";
         const resetListMessage = "登録商品リストをリセットしました。";
 
-        // Reset progress bar before showing
-         if(progressBar) {
-             progressBar.style.transition = 'none';
-             progressBar.style.transform = 'scaleX(1)';
-             progressBar.style.display = 'none'; // Hide initially
-         }
-        // Reset sub-message visibility
-        if(subMessage) {
-            subMessage.style.display = 'none';
-        }
+        if(progressBar) { progressBar.style.transition = 'none'; progressBar.style.transform = 'scaleX(1)'; progressBar.style.display = 'none'; }
+        if(subMessage) { subMessage.style.display = 'none'; }
 
         if (type === "error") {
             toast.classList.add('error');
         } else { // Success messages
             const icon = toast.querySelector('.toast-icon svg');
             if (icon) { icon.style.display = 'none'; icon.offsetHeight; icon.style.display = ''; }
-
             if (message === mainSuccessMessage) {
-                // Show sub-message and progress bar only for main success
                 if(subMessage) subMessage.style.display = 'block';
                 if(progressBar) progressBar.style.display = 'block';
-                startCountdown(5); // Start countdown
-                 // Set timer to reset the form
-                 toastTimeout = setTimeout(resetForm, 5000);
+                startCountdown(5);
+                toastTimeout = setTimeout(resetForm, 5000); // Set reset timer only for main success
+            } else if (message === resetListMessage) {
+                 toastTimeout = setTimeout(hideToast, 3000); // Auto-hide reset list confirmation
             } else {
-                 // For other success messages (like list reset), auto-hide after 3s
+                // Default auto-hide for other potential success messages
                  toastTimeout = setTimeout(hideToast, 3000);
             }
         }
-        toast.classList.add("show"); // Make toast visible
+        toast.classList.add("show");
     }
-
     function hideToast() {
         clearTimeout(toastTimeout); clearInterval(countdownInterval);
         toast.classList.remove("show", "shrinking");
         if(progressBar) { progressBar.style.transition = 'none'; progressBar.style.transform = 'scaleX(1)'; }
     }
-
     // --- Reset Error Style ---
      productForm.addEventListener('input', function(e) { if (e.target.style.borderColor) { e.target.style.borderColor = ''; } });
      productForm.addEventListener('change', function(e) { if (e.target.tagName === 'SELECT' && e.target.style.borderColor) { e.target.style.borderColor = ''; } });
